@@ -1,0 +1,32 @@
+class Solution {
+    public boolean backspaceCompare(String s, String t) {
+       String s1=word(s);
+       String t1=word(t);
+       if(s1.equals(t1))
+       return true;
+       else 
+       return false;
+
+    }
+    public String word(String s){
+             Stack<Character> st=new Stack<>();
+        for(int i=0;i<s.length();i++){
+            if(st.isEmpty() && s.charAt(i)=='#')
+            {
+                continue;
+            }
+            if(!st.isEmpty() && s.charAt(i)=='#')
+            {
+            st.pop();
+            continue;
+            }
+            st.push(s.charAt(i));
+        }
+        String str="";
+        while(!st.isEmpty()){
+            str=st.pop()+str;
+        }
+        System.out.println(str);
+        return str;
+    }
+}
