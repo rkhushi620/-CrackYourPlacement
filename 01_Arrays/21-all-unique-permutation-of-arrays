@@ -1,0 +1,40 @@
+ class Solution {
+    static ArrayList<ArrayList<Integer>> uniquePerms(ArrayList<Integer> arr , int n) {
+        ArrayList<ArrayList<Integer>> ans=new ArrayList<>();
+        ArrayList<Integer> p=new ArrayList<>();
+        Collections.sort(arr);
+        
+        boolean[] vis=new boolean[n];
+        Arrays.fill(vis,false);
+        permutation(0,n,p,ans,arr,vis);
+        return ans;
+        
+        
+    }
+    static void permutation(int i,int n,ArrayList<Integer> p,ArrayList<ArrayList<Integer>> ans,ArrayList<Integer> arr,boolean[] vis){
+        if(i==n){
+            ans.add(new ArrayList<>(p));
+            return;
+        }
+       
+        for(int j=0;j<arr.size();j++){
+            if(vis[j]==false){
+                if(j>0){
+                    if(!arr.get(j).equals(arr.get(j-1)) || vis[j-1]==true){
+                        p.add(arr.get(j));
+                        vis[j]=true;
+                        permutation(i+1,n,p,ans,arr,vis);
+                        vis[j]=false;
+                        p.remove(p.size()-1);
+                    }
+                }else{
+                    p.add(arr.get(j));
+                    vis[j]=true;
+                    permutation(i+1,n,p,ans,arr,vis);
+                    vis[j]=false;
+                    p.remove(p.size()-1);
+                }
+            }
+          }
+        }
+      }
